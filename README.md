@@ -1,5 +1,7 @@
 # RMSOUND Web
 
+![RMSOUND](assets/img/reel1.jpg)
+
 Sitio web estático para RMSOUND: sonido profesional para eventos, iluminación, pantallas LED, escenarios y producción integral.
 
 ## Archivos
