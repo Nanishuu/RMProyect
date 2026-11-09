@@ -255,12 +255,13 @@ const ITEM_META = {
 function updatePreview() {
   const chips = document.getElementById('previewChips');
   const stageEl = document.getElementById('stageElements');
-  const backdrop = document.getElementById('stageBackdrop');
+  const ledWall = document.getElementById('stageLedWall');
   if (!chips || !stageEl) return;
   const selected = getSelectedItems();
   chips.innerHTML = '';
   stageEl.innerHTML = '';
-  let led = false;
+  if (ledWall) ledWall.innerHTML = '';
+  let ledQty = 0;
   selected.forEach(s => {
     const meta = ITEM_META[s.id] || { icon: 'fa-circle', color: '#a855f7' };
     // chip
@@ -268,16 +269,26 @@ function updatePreview() {
     chip.className = 'preview-chip';
     chip.innerHTML = `<i class="fas ${meta.icon}"></i> ${s.name} <strong>x${s.qty}</strong>`;
     chips.appendChild(chip);
-    // stage element (icono)
-    const el = document.createElement('div');
-    el.className = 'stage-el';
-    el.style.color = meta.color;
-    el.innerHTML = `<i class="fas ${meta.icon}"></i>`;
-    // posicionamiento simple por hash del id
-    stageEl.appendChild(el);
-    if (meta.led) led = true;
+    // stage element (icono) - las pantallas LED se representan como cuadros
+    if (!meta.led) {
+      const el = document.createElement('div');
+      el.className = 'stage-el';
+      el.style.color = meta.color;
+      el.innerHTML = `<i class="fas ${meta.icon}"></i>`;
+      stageEl.appendChild(el);
+    } else {
+      ledQty += (parseInt(s.qty, 10) || 1);
+    }
   });
-  if (backdrop) backdrop.classList.toggle('active', led);
+  // pantalla LED: cuadros según cantidad (m²), máximo 60
+  if (ledWall) {
+    const tiles = Math.min(Math.max(ledQty * 3, 0), 60);
+    for (let i = 0; i < tiles; i++) {
+      const t = document.createElement('div');
+      t.className = 'led-tile';
+      ledWall.appendChild(t);
+    }
+  }
   // distribuir iconos en el escenario
   const els = stageEl.querySelectorAll('.stage-el');
   const n = els.length;

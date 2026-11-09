@@ -382,15 +382,21 @@ a { color: inherit; text-decoration: none; }
   background: linear-gradient(180deg, #2a2a4a, #121226);
   border-top: 1px solid rgba(168,85,247,0.3);
 }
-.stage-backdrop {
+.stage-ledwall {
   position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-  width: 60%; height: 60px;
-  background: linear-gradient(135deg, #7c3aed, #00f5ff);
-  border-radius: 6px; opacity: 0.15;
-  transition: opacity .4s, width .4s;
-  box-shadow: 0 0 20px rgba(168,85,247,0.4);
+  display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; align-content: flex-start;
+  max-width: 82%; min-height: 12px;
+  padding: 4px; border-radius: 6px;
+  background: rgba(124,58,237,0.08);
+  border: 1px solid rgba(168,85,247,0.25);
+  transition: all .3s ease;
 }
-.stage-backdrop.active { opacity: 0.85; }
+.led-tile {
+  width: 12px; height: 12px; border-radius: 2px;
+  background: linear-gradient(135deg, #7c3aed, #00f5ff);
+  box-shadow: 0 0 6px rgba(168,85,247,0.7);
+  animation: popIn .25s ease;
+}
 .stage-elements {
   position: absolute; inset: 0; pointer-events: none;
 }
