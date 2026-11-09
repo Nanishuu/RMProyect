@@ -293,22 +293,56 @@ function updatePreview() {
     chip.className = 'preview-chip';
     chip.innerHTML = `<i class="fas ${meta.icon}"></i> ${s.name} <strong>x${s.qty}</strong>`;
     chips.appendChild(chip);
-    // stage element (icono) - las pantallas LED se representan como cuadros
-    if (!meta.led) {
+    // stage element (icono) - las pantallas LED y el truss se representan aparte
+    if (meta.led) {
+      if (s.id === 'ledin') ledQtyIn += (parseInt(s.qty, 10) || 1);
+      else if (s.id === 'ledout') ledQtyOut += (parseInt(s.qty, 10) || 1);
+    } else if (s.id === 'truss') {
+      // el truss se dibuja como marco alrededor de los paneles
+    } else {
       const el = document.createElement('div');
       el.className = 'stage-el';
       el.style.color = meta.color;
       el.innerHTML = `<i class="fas ${meta.icon}"></i>`;
       stageEl.appendChild(el);
-    } else {
-      if (s.id === 'ledin') ledQtyIn += (parseInt(s.qty, 10) || 1);
-      else if (s.id === 'ledout') ledQtyOut += (parseInt(s.qty, 10) || 1);
     }
   });
   // render panels indoor/outdoor por separado
   renderLedPanel(wallIn, standIn, ledQtyIn);
   renderLedPanel(wallOut, standOut, ledQtyOut);
-  // (rendering handled by renderLedPanel)
+  // truss: marco alrededor de los paneles LED
+  const trussFrame = document.getElementById('trussFrame');
+  const trussSelected = selected.some(s => s.id === 'truss');
+  if (trussFrame) {
+    if (!trussSelected) {
+      trussFrame.classList.remove('active');
+    } else {
+      trussFrame.classList.add('active');
+      requestAnimationFrame(() => {
+        const stage = document.getElementById('stagePreview');
+        if (!stage) return;
+        const stageRect = stage.getBoundingClientRect();
+        const rects = [];
+        if (wallIn && wallIn.style.display !== 'none') rects.push(wallIn.getBoundingClientRect());
+        if (wallOut && wallOut.style.display !== 'none') rects.push(wallOut.getBoundingClientRect());
+        if (rects.length) {
+          const left = Math.min(...rects.map(r => r.left)) - stageRect.left - 8;
+          const right = Math.max(...rects.map(r => r.right)) - stageRect.left + 8;
+          const top = Math.min(...rects.map(r => r.top)) - stageRect.top - 8;
+          const bottom = Math.max(...rects.map(r => r.bottom)) - stageRect.top + 8;
+          trussFrame.style.left = left + 'px';
+          trussFrame.style.top = top + 'px';
+          trussFrame.style.width = (right - left) + 'px';
+          trussFrame.style.height = (bottom - top) + 'px';
+        } else {
+          trussFrame.style.left = '20%';
+          trussFrame.style.top = '20px';
+          trussFrame.style.width = '60%';
+          trussFrame.style.height = '70px';
+        }
+      });
+    }
+  }
   // distribuir iconos en el escenario
   const els = stageEl.querySelectorAll('.stage-el');
   const n = els.length;
