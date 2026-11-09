@@ -444,6 +444,16 @@ a { color: inherit; text-decoration: none; }
 .truss-node.tr { top: -2px; right: -2px; }
 .truss-node.bl { bottom: -2px; left: -2px; }
 .truss-node.br { bottom: -2px; right: -2px; }
+.stage-platform {
+  position: absolute;
+  height: 8px;
+  background: linear-gradient(180deg, #4a4a7a, #1a1a33);
+  border: 1px solid rgba(168,85,247,0.4);
+  border-radius: 3px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  display: none;
+}
+.stage-platform.active { display: block; }
 .stage-elements {
   position: absolute; inset: 0; pointer-events: none;
 }

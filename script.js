@@ -173,7 +173,8 @@ const QUOTE_ITEMS = [
   ]},
   { cat: 'Escenarios', items: [
     { id: 'stage', name: 'Tarima modular (m²)' },
-    { id: 'truss', name: 'Estructura truss' },
+    { id: 'trussin', name: 'Truss para pantalla indoor' },
+    { id: 'trussout', name: 'Truss para pantalla outdoor' },
     { id: 'roof', name: 'Techado / carpa' },
     { id: 'backdrop', name: 'Backing / escenografía' },
   ]},
@@ -242,8 +243,10 @@ const ITEM_META = {
   ledout: { icon: 'fa-tv', color: '#00f5ff', led: true },
   proc: { icon: 'fa-microchip', color: '#7c3aed' },
   content: { icon: 'fa-film', color: '#a855f7' },
-  stage: { icon: 'fa-layer-group', color: '#a855f7' },
+  stage: { icon: 'fa-layer-group', color: '#a855f7', platform: true },
   truss: { icon: 'fa-grip-vertical', color: '#c084fc' },
+  trussin: { icon: 'fa-grip-vertical', color: '#c084fc', truss: true, panel: 'in' },
+  trussout: { icon: 'fa-grip-vertical', color: '#c084fc', truss: true, panel: 'out' },
   roof: { icon: 'fa-umbrella', color: '#94a3b8' },
   backdrop: { icon: 'fa-image', color: '#ff00ff' },
   gen: { icon: 'fa-bolt', color: '#fbbf24' },
@@ -286,6 +289,8 @@ function updatePreview() {
   if (wallIn) wallIn.innerHTML = '';
   if (wallOut) wallOut.innerHTML = '';
   let ledQtyIn = 0, ledQtyOut = 0;
+  let trussInSelected = false, trussOutSelected = false;
+  let platformSelected = false;
   selected.forEach(s => {
     const meta = ITEM_META[s.id] || { icon: 'fa-circle', color: '#a855f7' };
     // chip
@@ -293,12 +298,15 @@ function updatePreview() {
     chip.className = 'preview-chip';
     chip.innerHTML = `<i class="fas ${meta.icon}"></i> ${s.name} <strong>x${s.qty}</strong>`;
     chips.appendChild(chip);
-    // stage element (icono) - las pantallas LED y el truss se representan aparte
+    // stage element (icono)
     if (meta.led) {
       if (s.id === 'ledin') ledQtyIn += (parseInt(s.qty, 10) || 1);
       else if (s.id === 'ledout') ledQtyOut += (parseInt(s.qty, 10) || 1);
-    } else if (s.id === 'truss') {
-      // el truss se dibuja como marco alrededor de los paneles
+    } else if (meta.truss) {
+      if (s.id === 'trussin') trussInSelected = true;
+      else if (s.id === 'trussout') trussOutSelected = true;
+    } else if (meta.platform) {
+      platformSelected = true;
     } else {
       const el = document.createElement('div');
       el.className = 'stage-el';
@@ -310,14 +318,39 @@ function updatePreview() {
   // render panels indoor/outdoor por separado
   renderLedPanel(wallIn, standIn, ledQtyIn);
   renderLedPanel(wallOut, standOut, ledQtyOut);
-  // truss: marco alrededor de los paneles LED
-  const trussFrame = document.getElementById('trussFrame');
-  const trussSelected = selected.some(s => s.id === 'truss');
-  if (trussFrame) {
-    if (!trussSelected) {
-      trussFrame.classList.remove('active');
+  // truss por panel: marco alrededor de indoor/outdoor
+  const frameIn = document.getElementById('trussFrameIn');
+  const frameOut = document.getElementById('trussFrameOut');
+  function setupFrame(frame, wall, activeFlag) {
+    if (!frame) return;
+    if (!activeFlag || wall.style.display === 'none') {
+      frame.classList.remove('active');
+      return;
+    }
+    frame.classList.add('active');
+    requestAnimationFrame(() => {
+      const stage = document.getElementById('stagePreview');
+      if (!stage) return;
+      const stageRect = stage.getBoundingClientRect();
+      const r = wall.getBoundingClientRect();
+      const left = r.left - stageRect.left - 8;
+      const top = r.top - stageRect.top - 8;
+      frame.style.left = left + 'px';
+      frame.style.top = top + 'px';
+      frame.style.width = (r.width + 16) + 'px';
+      frame.style.height = (r.height + 16) + 'px';
+    });
+  }
+  setupFrame(frameIn, wallIn, trussInSelected);
+  setupFrame(frameOut, wallOut, trussOutSelected);
+
+  // tarima modular debajo de los paneles
+  const platform = document.getElementById('stagePlatform');
+  if (platform) {
+    if (!platformSelected) {
+      platform.classList.remove('active');
     } else {
-      trussFrame.classList.add('active');
+      platform.classList.add('active');
       requestAnimationFrame(() => {
         const stage = document.getElementById('stagePreview');
         if (!stage) return;
@@ -326,19 +359,16 @@ function updatePreview() {
         if (wallIn && wallIn.style.display !== 'none') rects.push(wallIn.getBoundingClientRect());
         if (wallOut && wallOut.style.display !== 'none') rects.push(wallOut.getBoundingClientRect());
         if (rects.length) {
-          const left = Math.min(...rects.map(r => r.left)) - stageRect.left - 8;
-          const right = Math.max(...rects.map(r => r.right)) - stageRect.left + 8;
-          const top = Math.min(...rects.map(r => r.top)) - stageRect.top - 8;
-          const bottom = Math.max(...rects.map(r => r.bottom)) - stageRect.top + 8;
-          trussFrame.style.left = left + 'px';
-          trussFrame.style.top = top + 'px';
-          trussFrame.style.width = (right - left) + 'px';
-          trussFrame.style.height = (bottom - top) + 'px';
+          const left = Math.min(...rects.map(r => r.left)) - stageRect.left - 4;
+          const right = Math.max(...rects.map(r => r.right)) - stageRect.left + 4;
+          const bottom = Math.max(...rects.map(r => r.bottom)) - stageRect.top + 2;
+          platform.style.left = left + 'px';
+          platform.style.top = (bottom) + 'px';
+          platform.style.width = (right - left) + 'px';
         } else {
-          trussFrame.style.left = '20%';
-          trussFrame.style.top = '20px';
-          trussFrame.style.width = '60%';
-          trussFrame.style.height = '70px';
+          platform.style.left = '20%';
+          platform.style.top = '90px';
+          platform.style.width = '60%';
         }
       });
     }
