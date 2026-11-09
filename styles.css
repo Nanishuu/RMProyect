@@ -383,7 +383,7 @@ a { color: inherit; text-decoration: none; }
   border-top: 1px solid rgba(168,85,247,0.3);
 }
 .stage-ledwall {
-  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  position: absolute; top: 8px; transform: translateX(-50%);
   display: grid; gap: 2px;
   padding: 5px;
   background: #050510;
@@ -392,6 +392,10 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 0 14px rgba(168,85,247,0.45), inset 0 0 10px rgba(0,0,0,0.6);
   transition: all .3s ease;
 }
+.stage-ledwall-in { left: 30%; }
+.stage-ledwall-out { left: 70%; }
+.led-stand-in { left: 30% !important; width: 38% !important; }
+.led-stand-out { left: 70% !important; width: 38% !important; }
 .led-tile {
   width: 7px; height: 7px; border-radius: 1px;
   background: #a855f7;

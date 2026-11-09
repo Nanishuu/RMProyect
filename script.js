@@ -252,16 +252,40 @@ const ITEM_META = {
   tech: { icon: 'fa-user-gear', color: '#00f5ff' },
 };
 
+function renderLedPanel(wall, stand, qty) {
+  if (!wall) return;
+  wall.innerHTML = '';
+  const tiles = Math.min(Math.max(qty * 3, 0), 60);
+  if (tiles === 0) {
+    wall.style.display = 'none';
+    if (stand) stand.classList.remove('active');
+  } else {
+    wall.style.display = 'grid';
+    const cols = Math.max(2, Math.round(Math.sqrt(tiles * (16 / 9))));
+    wall.style.gridTemplateColumns = `repeat(${cols}, 7px)`;
+    for (let i = 0; i < tiles; i++) {
+      const t = document.createElement('div');
+      t.className = 'led-tile';
+      wall.appendChild(t);
+    }
+    if (stand) stand.classList.add('active');
+  }
+}
+
 function updatePreview() {
   const chips = document.getElementById('previewChips');
   const stageEl = document.getElementById('stageElements');
-  const ledWall = document.getElementById('stageLedWall');
+  const wallIn = document.getElementById('stageLedWallIn');
+  const wallOut = document.getElementById('stageLedWallOut');
+  const standIn = document.getElementById('stageLedStandIn');
+  const standOut = document.getElementById('stageLedStandOut');
   if (!chips || !stageEl) return;
   const selected = getSelectedItems();
   chips.innerHTML = '';
   stageEl.innerHTML = '';
-  if (ledWall) ledWall.innerHTML = '';
-  let ledQty = 0;
+  if (wallIn) wallIn.innerHTML = '';
+  if (wallOut) wallOut.innerHTML = '';
+  let ledQtyIn = 0, ledQtyOut = 0;
   selected.forEach(s => {
     const meta = ITEM_META[s.id] || { icon: 'fa-circle', color: '#a855f7' };
     // chip
@@ -277,29 +301,14 @@ function updatePreview() {
       el.innerHTML = `<i class="fas ${meta.icon}"></i>`;
       stageEl.appendChild(el);
     } else {
-      ledQty += (parseInt(s.qty, 10) || 1);
+      if (s.id === 'ledin') ledQtyIn += (parseInt(s.qty, 10) || 1);
+      else if (s.id === 'ledout') ledQtyOut += (parseInt(s.qty, 10) || 1);
     }
   });
-  // pantalla LED: cuadros según cantidad (m²), máximo 60, en matriz
-  const ledStand = document.getElementById('stageLedStand');
-  if (ledWall) {
-    const tiles = Math.min(Math.max(ledQty * 3, 0), 60);
-    if (tiles === 0) {
-      ledWall.style.display = 'none';
-      if (ledStand) ledStand.classList.remove('active');
-    } else {
-      ledWall.style.display = 'grid';
-      const cols = Math.max(2, Math.round(Math.sqrt(tiles * (16 / 9))));
-      const rows = Math.ceil(tiles / cols);
-      ledWall.style.gridTemplateColumns = `repeat(${cols}, 7px)`;
-      for (let i = 0; i < tiles; i++) {
-        const t = document.createElement('div');
-        t.className = 'led-tile';
-        ledWall.appendChild(t);
-      }
-      if (ledStand) ledStand.classList.add('active');
-    }
-  }
+  // render panels indoor/outdoor por separado
+  renderLedPanel(wallIn, standIn, ledQtyIn);
+  renderLedPanel(wallOut, standOut, ledQtyOut);
+  // (rendering handled by renderLedPanel)
   // distribuir iconos en el escenario
   const els = stageEl.querySelectorAll('.stage-el');
   const n = els.length;
