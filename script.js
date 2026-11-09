@@ -280,13 +280,24 @@ function updatePreview() {
       ledQty += (parseInt(s.qty, 10) || 1);
     }
   });
-  // pantalla LED: cuadros según cantidad (m²), máximo 60
+  // pantalla LED: cuadros según cantidad (m²), máximo 60, en matriz
+  const ledStand = document.getElementById('stageLedStand');
   if (ledWall) {
     const tiles = Math.min(Math.max(ledQty * 3, 0), 60);
-    for (let i = 0; i < tiles; i++) {
-      const t = document.createElement('div');
-      t.className = 'led-tile';
-      ledWall.appendChild(t);
+    if (tiles === 0) {
+      ledWall.style.display = 'none';
+      if (ledStand) ledStand.classList.remove('active');
+    } else {
+      ledWall.style.display = 'grid';
+      const cols = Math.max(2, Math.round(Math.sqrt(tiles * (16 / 9))));
+      const rows = Math.ceil(tiles / cols);
+      ledWall.style.gridTemplateColumns = `repeat(${cols}, 7px)`;
+      for (let i = 0; i < tiles; i++) {
+        const t = document.createElement('div');
+        t.className = 'led-tile';
+        ledWall.appendChild(t);
+      }
+      if (ledStand) ledStand.classList.add('active');
     }
   }
   // distribuir iconos en el escenario
