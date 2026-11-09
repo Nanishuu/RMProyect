@@ -414,14 +414,36 @@ a { color: inherit; text-decoration: none; }
 .led-stand.active { display: block; }
 .truss-frame {
   position: absolute;
-  border: 2px dashed rgba(192,132,252,0.7);
-  border-radius: 4px;
   display: none;
-  box-shadow: 0 0 10px rgba(192,132,252,0.35);
   pointer-events: none;
-  background: repeating-linear-gradient(0deg, transparent 0 6px, rgba(192,132,252,0.05) 6px 12px);
 }
 .truss-frame.active { display: block; }
+.truss-bar {
+  position: absolute;
+  border-radius: 2px;
+  box-shadow: 0 0 6px rgba(192,132,252,0.5);
+}
+.truss-top, .truss-bottom {
+  height: 5px; left: 0; right: 0;
+  background: repeating-linear-gradient(90deg, #c084fc 0 8px, #7c3aed 8px 16px);
+}
+.truss-top { top: 0; }
+.truss-bottom { bottom: 0; }
+.truss-left, .truss-right {
+  width: 5px; top: 0; bottom: 0;
+  background: repeating-linear-gradient(0deg, #c084fc 0 8px, #7c3aed 8px 16px);
+}
+.truss-left { left: 0; }
+.truss-right { right: 0; }
+.truss-node {
+  position: absolute; width: 9px; height: 9px;
+  background: #a855f7; border-radius: 2px;
+  box-shadow: 0 0 8px #a855f7;
+}
+.truss-node.tl { top: -2px; left: -2px; }
+.truss-node.tr { top: -2px; right: -2px; }
+.truss-node.bl { bottom: -2px; left: -2px; }
+.truss-node.br { bottom: -2px; right: -2px; }
 .stage-elements {
   position: absolute; inset: 0; pointer-events: none;
 }
