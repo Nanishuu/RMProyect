@@ -357,3 +357,62 @@ a { color: inherit; text-decoration: none; }
 #quote .summary-row span:last-child { color: #7c3aed; }
 #quote .summary-note { color: #555; }
 #quote .empty { color: #555; }
+
+/* Vista previa */
+#quote .preview-card {
+  background: #f5f3ff;
+  border: 1px solid rgba(124,58,237,0.25);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 0 18px rgba(124,58,237,0.12);
+}
+#quote .preview-card h3 { font-family: 'Orbitron', sans-serif; font-size: 1rem; margin-bottom: 14px; color: #7c3aed; }
+.preview-note { font-size: 0.78rem; color: #555; margin-top: 10px; text-align: center; }
+
+.stage {
+  position: relative; width: 100%; height: 160px;
+  background: linear-gradient(180deg, #1a1a33 0%, #0d0d1a 100%);
+  border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(124,58,237,0.3);
+  margin-bottom: 12px;
+}
+.stage-floor {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 24px;
+  background: linear-gradient(180deg, #2a2a4a, #121226);
+  border-top: 1px solid rgba(168,85,247,0.3);
+}
+.stage-backdrop {
+  position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 60%; height: 60px;
+  background: linear-gradient(135deg, #7c3aed, #00f5ff);
+  border-radius: 6px; opacity: 0.15;
+  transition: opacity .4s, width .4s;
+  box-shadow: 0 0 20px rgba(168,85,247,0.4);
+}
+.stage-backdrop.active { opacity: 0.85; }
+.stage-elements {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.stage-el {
+  position: absolute; display: flex; flex-direction: column; align-items: center;
+  color: #fff; font-size: 0.7rem; text-align: center;
+  animation: popIn .35s ease;
+}
+.stage-el i {
+  font-size: 1.4rem; margin-bottom: 2px;
+  text-shadow: 0 0 10px currentColor;
+}
+@keyframes popIn { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.preview-chips {
+  display: flex; flex-wrap: wrap; gap: 8px; min-height: 32px;
+}
+.preview-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-radius: 999px;
+  background: #ffffff; border: 1px solid rgba(124,58,237,0.25);
+  color: #1a1a2e; font-size: 0.78rem;
+  animation: popIn .3s ease;
+}
+.preview-chip i { color: #7c3aed; }

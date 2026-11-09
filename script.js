@@ -221,9 +221,72 @@ function getSelectedItems() {
   const selected = [];
   quoteItemsContainer.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
     const qty = quoteItemsContainer.querySelector(`.qty[data-for="${cb.dataset.id}"]`);
-    selected.push({ name: cb.dataset.name, qty: parseInt(qty?.value || '1', 10) || 1 });
+    selected.push({ id: cb.dataset.id, name: cb.dataset.name, qty: parseInt(qty?.value || '1', 10) || 1 });
   });
   return selected;
+}
+
+const ITEM_META = {
+  linearray: { icon: 'fa-volume-high', color: '#a855f7' },
+  sub: { icon: 'fa-drum', color: '#c084fc' },
+  console: { icon: 'fa-sliders', color: '#7c3aed' },
+  mic: { icon: 'fa-microphone', color: '#a855f7' },
+  monitor: { icon: 'fa-headphones', color: '#c084fc' },
+  djbooth: { icon: 'fa-compact-disc', color: '#00f5ff' },
+  moving: { icon: 'fa-lightbulb', color: '#fbbf24' },
+  barled: { icon: 'fa-grip-lines', color: '#00f5ff' },
+  smoke: { icon: 'fa-smog', color: '#94a3b8' },
+  spot: { icon: 'fa-bullseye', color: '#fbbf24' },
+  deco: { icon: 'fa-wand-magic-sparkles', color: '#ff00ff' },
+  ledin: { icon: 'fa-tv', color: '#00f5ff', led: true },
+  ledout: { icon: 'fa-tv', color: '#00f5ff', led: true },
+  proc: { icon: 'fa-microchip', color: '#7c3aed' },
+  content: { icon: 'fa-film', color: '#a855f7' },
+  stage: { icon: 'fa-layer-group', color: '#a855f7' },
+  truss: { icon: 'fa-grip-vertical', color: '#c084fc' },
+  roof: { icon: 'fa-umbrella', color: '#94a3b8' },
+  backdrop: { icon: 'fa-image', color: '#ff00ff' },
+  gen: { icon: 'fa-bolt', color: '#fbbf24' },
+  bath: { icon: 'fa-restroom', color: '#94a3b8' },
+  trans: { icon: 'fa-truck', color: '#94a3b8' },
+  tech: { icon: 'fa-user-gear', color: '#00f5ff' },
+};
+
+function updatePreview() {
+  const chips = document.getElementById('previewChips');
+  const stageEl = document.getElementById('stageElements');
+  const backdrop = document.getElementById('stageBackdrop');
+  if (!chips || !stageEl) return;
+  const selected = getSelectedItems();
+  chips.innerHTML = '';
+  stageEl.innerHTML = '';
+  let led = false;
+  selected.forEach(s => {
+    const meta = ITEM_META[s.id] || { icon: 'fa-circle', color: '#a855f7' };
+    // chip
+    const chip = document.createElement('span');
+    chip.className = 'preview-chip';
+    chip.innerHTML = `<i class="fas ${meta.icon}"></i> ${s.name} <strong>x${s.qty}</strong>`;
+    chips.appendChild(chip);
+    // stage element (icono)
+    const el = document.createElement('div');
+    el.className = 'stage-el';
+    el.style.color = meta.color;
+    el.innerHTML = `<i class="fas ${meta.icon}"></i>`;
+    // posicionamiento simple por hash del id
+    stageEl.appendChild(el);
+    if (meta.led) led = true;
+  });
+  if (backdrop) backdrop.classList.toggle('active', led);
+  // distribuir iconos en el escenario
+  const els = stageEl.querySelectorAll('.stage-el');
+  const n = els.length;
+  els.forEach((el, i) => {
+    const pct = (i + 1) / (n + 1) * 100;
+    el.style.left = pct + '%';
+    el.style.bottom = '30px';
+    el.style.transform = 'translateX(-50%)';
+  });
 }
 
 function updateSummary() {
@@ -232,11 +295,12 @@ function updateSummary() {
   const selected = getSelectedItems();
   if (selected.length === 0) {
     list.innerHTML = '<p class="empty">Aún no has seleccionado productos.</p>';
-    return;
+  } else {
+    list.innerHTML = selected.map(s => `
+      <div class="summary-row"><span>${s.name}</span><span>x${s.qty}</span></div>
+    `).join('');
   }
-  list.innerHTML = selected.map(s => `
-    <div class="summary-row"><span>${s.name}</span><span>x${s.qty}</span></div>
-  `).join('');
+  updatePreview();
 }
 
 function buildQuoteText() {
