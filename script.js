@@ -465,11 +465,76 @@ document.getElementById('copyQuote')?.addEventListener('click', async () => {
 
 // ===== SCROLLYTELLING =====
 
+// 0) LOGO 3D EXTRUIDO: capas apiladas con translateZ (efecto 3D básico)
+const logo3d = document.getElementById('logo3d');
+const navLogo = document.getElementById('navLogo');
+let logo3dInner = null;
+
+function initLogo3d() {
+  if (!logo3d) return;
+  const inner = document.createElement('div');
+  inner.className = 'logo-3d-inner';
+  const LAYERS = 14;
+  for (let i = 0; i < LAYERS; i++) {
+    const s = document.createElement('span');
+    s.className = 'logo-3d-layer';
+    s.textContent = 'RM SOUND';
+    const t = i / (LAYERS - 1); // 0 = atrás, 1 = frente
+    s.style.setProperty('--z', (t * 26 - 26) + 'px'); // -26px → 0px
+    if (i < LAYERS - 1) {
+      // capas traseras: morado oscuro → morado claro (efecto extrusión)
+      s.style.color = `hsl(266, 65%, ${Math.round(14 + t * 28)}%)`;
+      s.style.textShadow = 'none';
+      s.style.opacity = String(0.5 + t * 0.5);
+    }
+    inner.appendChild(s);
+  }
+  logo3d.appendChild(inner);
+  logo3dInner = inner;
+}
+initLogo3d();
+
+// El logo rota y viaja con el scroll; al final del hero se acopla al nav
+function updateLogo3d() {
+  if (!logo3d || !logo3dInner) return;
+  const vh = window.innerHeight;
+  const p = Math.min(1, Math.max(0, window.scrollY / vh));
+  // easing in-out para un acople suave
+  const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  // posición inicial (centro del hero) → posición del logo del nav
+  let dx = 0, dy = 0;
+  if (navLogo) {
+    const r = navLogo.getBoundingClientRect();
+    const startX = window.innerWidth / 2, startY = vh * 0.38;
+    dx = (r.left + r.width / 2 - startX) * e;
+    dy = (r.top + r.height / 2 - startY) * e;
+  }
+  const rotY = -150 * (1 - e); // se aplana al acoplarse
+  const rotX = 18 * (1 - e);
+  const scale = 1 - 0.74 * e;  // grande → tamaño del nav
+  logo3dInner.style.transform =
+    `translate(calc(-50% + ${dx.toFixed(1)}px), calc(-50% + ${dy.toFixed(1)}px)) ` +
+    `rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+  // crossfade con el logo del nav
+  logo3d.style.opacity = p >= 0.985 ? '0' : '1';
+  if (navLogo) {
+    navLogo.style.opacity = e > 0.92 ? String(Math.min(1, (e - 0.92) / 0.08)) : '0';
+  }
+}
+
+if (reduceMotion || !logo3dInner) {
+  // sin animación: logo 3D oculto, logo del nav siempre visible
+  if (logo3d) logo3d.style.display = 'none';
+  if (navLogo) navLogo.style.opacity = '1';
+}
+
 // a) Barra de progreso + scrub del hero (fade al alejarte)
 const progressFill = document.getElementById('progressFill');
 const heroContent = document.querySelector('.hero-content');
 
 function onScrolly() {
+  // logo 3D: rotación y acople con el scroll
+  if (!reduceMotion) updateLogo3d();
   // progreso de scroll 0-100%
   const doc = document.documentElement;
   const max = doc.scrollHeight - window.innerHeight;

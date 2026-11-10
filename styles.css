@@ -406,6 +406,32 @@ a { color: inherit; text-decoration: none; }
   .story-step { min-height: 22vh; }
 }
 
+/* ===== LOGO 3D EXTRUIDO (scrollytelling) ===== */
+.logo-3d {
+  position: fixed; left: 50%; top: 38%;
+  z-index: 1; perspective: 900px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity .15s linear;
+}
+.logo-3d-inner {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: translate(-50%, -50%);
+}
+.logo-3d-layer {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%) translateZ(var(--z, 0px));
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.6rem, 9vw, 6.5rem);
+  letter-spacing: 0.35em;
+  white-space: nowrap;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(168,85,247,0.55), 0 0 60px rgba(124,58,237,0.35);
+}
+#navLogo { transition: opacity .25s ease; }
+
 /* scroll reveal (entrada/salida) */
 [data-animate] {
   opacity: 0;
