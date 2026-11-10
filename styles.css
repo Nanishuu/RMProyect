@@ -299,6 +299,113 @@ a { color: inherit; text-decoration: none; }
 /* parallax helper */
 [data-parallax] { will-change: transform; }
 
+/* ===== SCROLLYTELLING ===== */
+
+/* Barra de progreso */
+.progress-track {
+  position: fixed; top: 0; left: 0; width: 100%; height: 3px;
+  z-index: 1200; background: rgba(255,255,255,0.05);
+}
+.progress-fill {
+  display: block; height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  box-shadow: 0 0 10px rgba(168,85,247,0.9);
+}
+
+/* Navegación por puntos */
+.dots-nav {
+  position: fixed; right: 20px; top: 50%; transform: translateY(-50%);
+  z-index: 1100; display: flex; flex-direction: column; gap: 14px;
+}
+.dots-nav a {
+  position: relative; width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(168,85,247,0.35);
+  transition: transform .3s, background .3s, box-shadow .3s;
+}
+.dots-nav a.active {
+  background: var(--purple-2);
+  box-shadow: 0 0 12px var(--purple-2);
+  transform: scale(1.4);
+}
+.dots-nav a span {
+  position: absolute; right: 22px; top: 50%; transform: translateY(-50%);
+  font-size: 0.72rem; color: var(--muted); white-space: nowrap;
+  background: rgba(7,7,13,0.92); border: 1px solid var(--border);
+  padding: 3px 10px; border-radius: 999px;
+  opacity: 0; transition: opacity .25s; pointer-events: none;
+}
+.dots-nav a:hover span, .dots-nav a.active span { opacity: 1; }
+@media (max-width: 900px) { .dots-nav { display: none; } }
+
+/* Capítulo: visual sticky + pasos */
+.story { display: grid; grid-template-columns: 1fr; gap: 24px; }
+.story-visual { position: sticky; top: 74px; z-index: 2; }
+.story-visual .led-frame { margin-bottom: 14px; }
+.story-visual-panel {
+  display: flex; align-items: center; gap: 14px;
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: var(--glow); min-height: 84px;
+}
+.story-visual-panel-lg { min-height: 120px; }
+.story-visual-panel .v-icon {
+  width: 52px; height: 52px; border-radius: 12px; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(124,58,237,0.18); border: 1px solid var(--border);
+  color: var(--purple-3); font-size: 1.5rem;
+  box-shadow: 0 0 16px rgba(168,85,247,0.3);
+}
+.story-visual-panel .v-info { min-width: 0; }
+.story-visual-panel .v-title { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; margin-bottom: 2px; }
+.story-visual-panel .v-text { color: var(--muted); font-size: 0.85rem; line-height: 1.45; }
+.swap { animation: storySwap .45s ease both; }
+@keyframes storySwap {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Pasos narrativos */
+.story-steps {
+  display: flex; flex-direction: column; gap: 26vh; padding: 10vh 0 6vh;
+}
+.story-step {
+  min-height: 30vh; display: flex; flex-direction: column; justify-content: center;
+  opacity: 0.25; transform: translateY(26px);
+  transition: opacity .5s ease, transform .5s ease;
+  will-change: opacity, transform;
+}
+.story-step.is-active { opacity: 1; transform: none; }
+.story-step .step-num {
+  font-family: 'Orbitron', sans-serif; font-size: 0.85rem; letter-spacing: 3px;
+  color: var(--purple-3); text-shadow: 0 0 14px var(--purple-2); margin-bottom: 6px;
+}
+.story-step h3 { font-family: 'Orbitron', sans-serif; font-size: 1.3rem; margin-bottom: 8px; }
+.story-step p { color: var(--muted); }
+
+@media (min-width: 900px) {
+  .story {
+    grid-template-columns: 0.95fr 1.05fr;
+    grid-template-areas: "visual steps";
+    align-items: start; gap: 56px;
+  }
+  .story-visual { grid-area: visual; top: 90px; }
+  .story-steps { grid-area: steps; gap: 32vh; padding: 12vh 0 8vh; }
+}
+
+/* Destacado de servicio activo */
+.service-card.is-active {
+  border-color: var(--purple-2);
+  box-shadow: 0 0 30px rgba(168,85,247,0.35);
+  transform: translateY(-4px);
+}
+
+/* Story en móvil */
+@media (max-width: 899px) {
+  .story-visual .led-frame img { height: 200px; }
+  .story-steps { gap: 18vh; padding: 6vh 0 4vh; }
+  .story-step { min-height: 22vh; }
+}
+
 /* scroll reveal (entrada/salida) */
 [data-animate] {
   opacity: 0;

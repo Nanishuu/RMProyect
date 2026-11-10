@@ -13,6 +13,20 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Barra de progreso de scroll -->
+  <div class="progress-track"><span class="progress-fill" id="progressFill"></span></div>
+
+  <!-- Navegación por puntos (capítulos) -->
+  <nav class="dots-nav" id="dotsNav" aria-label="Capítulos">
+    <a href="#hero" class="active"><span>Inicio</span></a>
+    <a href="#about"><span>Nosotros</span></a>
+    <a href="#process"><span>Proceso</span></a>
+    <a href="#services"><span>Servicios</span></a>
+    <a href="#gallery"><span>Galería</span></a>
+    <a href="#quote"><span>Cotización</span></a>
+    <a href="#contact"><span>Contacto</span></a>
+  </nav>
+
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
@@ -22,6 +36,7 @@
       <button class="nav-toggle" id="navToggle" aria-label="Menú"><i class="fas fa-bars"></i></button>
       <nav class="nav-links" id="navLinks">
         <a href="#about">Nosotros</a>
+        <a href="#process">Proceso</a>
         <a href="#services">Servicios</a>
         <a href="#gallery">Galería</a>
         <a href="#quote" class="nav-cta">Cotizar</a>
@@ -42,33 +57,101 @@
         <a href="https://wa.me/584144533064" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
       <div class="hero-stats" data-animate data-delay="4">
-        <div class="stat"><span class="stat-num">+10</span><span class="stat-label">Años de experiencia</span></div>
-        <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Eventos realizados</span></div>
-        <div class="stat"><span class="stat-num">100%</span><span class="stat-label">Compromiso</span></div>
+        <div class="stat"><span class="stat-num" data-count="10" data-prefix="+">+10</span><span class="stat-label">Años de experiencia</span></div>
+        <div class="stat"><span class="stat-num" data-count="500" data-suffix="+">500+</span><span class="stat-label">Eventos realizados</span></div>
+        <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label">Compromiso</span></div>
       </div>
     </div>
     <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
   </section>
 
-  <!-- ABOUT -->
+  <!-- ABOUT: capítulo scrollytelling -->
   <section id="about" class="section">
-    <div class="container grid-2">
-      <div class="about-text" data-animate>
-        <span class="eyebrow">Quiénes somos</span>
-        <h2 class="section-title">RM SOUND <span class="neon-purple">tu aliado en producción de eventos</span></h2>
-        <p>Somos una empresa dedicada al sonido profesional y la producción audiovisual para eventos. Llevamos la experiencia técnica y creativa a cada montaje: desde pequeñas celebraciones hasta grandes conciertos y eventos corporativos.</p>
-        <p>Nuestro equipo de técnicos especializados garantiza un sonido nítido, iluminación impactante, pantallas LED de alta resolución y escenarios seguros. Nos encargamos de todo: diseño, logística, montaje y operación.</p>
-        <ul class="feature-list">
-          <li><i class="fas fa-check-circle"></i> Equipos de última generación</li>
-          <li><i class="fas fa-check-circle"></i> Personal técnico capacitado</li>
-          <li><i class="fas fa-check-circle"></i> Soluciones a medida para cada evento</li>
-          <li><i class="fas fa-check-circle"></i> Atención personalizada de principio a fin</li>
-        </ul>
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="eyebrow">Capítulo 01 — Nosotros</span>
+        <h2 class="section-title">RM SOUND, <span class="neon-purple">tu aliado en el show</span></h2>
+        <p class="section-desc">Una historia por capítulos: de tu idea al escenario encendido.</p>
       </div>
-      <div class="about-visual" data-animate>
-        <div class="led-frame">
-          <img src="assets/img/profile.jpg" alt="RM SOUND" />
-          <div class="led-glow"></div>
+      <div class="story">
+        <div class="story-visual" data-animate>
+          <div class="led-frame">
+            <img src="assets/img/profile.jpg" alt="RM SOUND" />
+            <div class="led-glow"></div>
+          </div>
+          <div class="story-visual-panel" data-panel>
+            <span class="v-icon"><i class="fas fa-bolt"></i></span>
+            <div class="v-info">
+              <h4 class="v-title">RM SOUND</h4>
+              <p class="v-text">Sonido, LED, iluminación y escenarios bajo un mismo comando.</p>
+            </div>
+          </div>
+        </div>
+        <div class="story-steps">
+          <div class="story-step" data-vicon="fa-bolt" data-vtitle="RM SOUND" data-vtext="Sonido, LED, iluminación y escenarios bajo un mismo comando.">
+            <span class="step-num">01</span>
+            <h3>Nacimos del escenario</h3>
+            <p>Más de 10 años sonorizando conciertos, eventos corporativos y celebraciones. Cada montaje nos dejó una lección: el show se construye desde la técnica.</p>
+          </div>
+          <div class="story-step" data-vicon="fa-headset" data-vtitle="Diagnóstico 360°" data-vtext="Aforo, espacio, fecha y rider técnico: todo entra en la conversación.">
+            <span class="step-num">02</span>
+            <h3>Escuchamos tu evento</h3>
+            <p>Aforo, lugar, horarios y rider técnico. Antes de cotizar una sola bocina, entendemos exactamente qué necesita tu show para sonar bien.</p>
+          </div>
+          <div class="story-step" data-vicon="fa-pen-ruler" data-vtitle="Diseño técnico" data-vtext="Plano de montaje, distribución de pantallas, truss, sonido y luces.">
+            <span class="step-num">03</span>
+            <h3>Diseñamos tu montaje</h3>
+            <p>Distribución de pantallas LED, truss, sonido e iluminación pensada para tu espacio. Logística y tiempos bajo control desde el primer plano.</p>
+          </div>
+          <div class="story-step" data-vicon="fa-heart" data-vtitle="Show time" data-vtext="Montaje, pruebas y operación en vivo hasta el apagón final.">
+            <span class="step-num">04</span>
+            <h3>Lo hacemos show</h3>
+            <p>Montaje seguro, pruebas completas y operación en vivo. Te acompañamos con equipos de última generación y técnicos dedicados hasta el apagón final.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS: capítulo scrollytelling -->
+  <section id="process" class="section section-dark">
+    <div class="container">
+      <div class="section-head" data-animate>
+        <span class="eyebrow">Capítulo 02 — Proceso</span>
+        <h2 class="section-title">Del rider al <span class="neon">show</span></h2>
+        <p class="section-desc">Cuatro pasos que avanzan mientras haces scroll.</p>
+      </div>
+      <div class="story">
+        <div class="story-visual" data-animate>
+          <div class="story-visual-panel story-visual-panel-lg" data-panel>
+            <span class="v-icon"><i class="fas fa-comments"></i></span>
+            <div class="v-info">
+              <h4 class="v-title">Exploración</h4>
+              <p class="v-text">Entendemos tu evento: aforo, espacio, fecha y presupuesto.</p>
+            </div>
+          </div>
+        </div>
+        <div class="story-steps">
+          <div class="story-step" data-vicon="fa-comments" data-vtitle="Exploración" data-vtext="Entendemos tu evento: aforo, espacio, fecha y presupuesto.">
+            <span class="step-num">01</span>
+            <h3>Exploración</h3>
+            <p>Conversamos sobre tu evento: aforo, espacio, fecha, horarios y presupuesto. Sin letra pequeña.</p>
+          </div>
+          <div class="story-step" data-vicon="fa-pen-ruler" data-vtitle="Diseño técnico" data-vtext="Rider, plano de montaje y distribución de pantallas y truss.">
+            <span class="step-num">02</span>
+            <h3>Diseño técnico</h3>
+            <p>Armamos el rider, el plano de montaje y la distribución de pantallas, truss, sonido y luces.</p>
+          </div>
+          <div class="story-step" data-vicon="fa-truck-fast" data-vtitle="Producción" data-vtext="Logística, montaje y pruebas de sonido, LED y luces.">
+            <span class="step-num">03</span>
+            <h3>Producción y montaje</h3>
+            <p>Logística, traslado, armado y pruebas de sonido, pantallas LED e iluminación. Todo verificado antes de abrir puertas.</p>
+          </div>
+          <div class="story-step" data-vicon="fa-bolt" data-vtitle="Show time" data-vtext="Operación en vivo con respaldo técnico dedicado.">
+            <span class="step-num">04</span>
+            <h3>Show time</h3>
+            <p>Operación en vivo con técnico dedicado, respaldo de equipos y cierre puntual. Tu evento suena y brilla sin sorpresas.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -78,7 +161,7 @@
   <section id="services" class="section section-dark">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Servicios</span>
+        <span class="eyebrow">Capítulo 03 — Servicios</span>
         <h2 class="section-title">Todo lo que tu evento <span class="neon">necesita</span></h2>
         <p class="section-desc">Soluciones integrales de audio, video, iluminación y estructuras.</p>
       </div>
@@ -121,7 +204,7 @@
   <section id="gallery" class="section">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Galería</span>
+        <span class="eyebrow">Capítulo 04 — Galería</span>
         <h2 class="section-title">Nuestros <span class="neon">eventos</span></h2>
         <p class="section-desc">Un vistazo a montajes y shows realizados.</p>
       </div>
@@ -140,7 +223,7 @@
   <section id="quote" class="section section-dark">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Cotización</span>
+        <span class="eyebrow">Capítulo 05 — Cotización</span>
         <h2 class="section-title">Arma tu <span class="neon">cotización</span></h2>
         <p class="section-desc">Selecciona los equipos y servicios que necesitas. Te enviamos la propuesta por WhatsApp y correo.</p>
       </div>
@@ -258,7 +341,7 @@
   <section id="contact" class="section">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Contacto</span>
+        <span class="eyebrow">Capítulo 06 — Contacto</span>
         <h2 class="section-title">Hablemos de tu <span class="neon">evento</span></h2>
       </div>
       <div class="contact-grid">

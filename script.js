@@ -462,3 +462,107 @@ document.getElementById('copyQuote')?.addEventListener('click', async () => {
     alert('No se pudo copiar. Selecciona y copia manualmente.');
   }
 });
+
+// ===== SCROLLYTELLING =====
+
+// a) Barra de progreso + scrub del hero (fade al alejarte)
+const progressFill = document.getElementById('progressFill');
+const heroContent = document.querySelector('.hero-content');
+
+function onScrolly() {
+  // progreso de scroll 0-100%
+  const doc = document.documentElement;
+  const max = doc.scrollHeight - window.innerHeight;
+  if (progressFill) {
+    const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+    progressFill.style.width = pct + '%';
+  }
+  // hero: se desvanece y sube al hacer scroll
+  if (heroContent && !reduceMotion) {
+    const p = Math.min(1, Math.max(0, window.scrollY / window.innerHeight));
+    heroContent.style.opacity = String(Math.max(0, 1 - p * 1.15));
+    heroContent.style.transform = `translate3d(0, ${p * -70}px, 0)`;
+    heroContent.style.pointerEvents = p > 0.9 ? 'none' : '';
+  }
+}
+let scrollyTicking = false;
+window.addEventListener('scroll', () => {
+  if (!scrollyTicking) {
+    requestAnimationFrame(() => { onScrolly(); scrollyTicking = false; });
+    scrollyTicking = true;
+  }
+}, { passive: true });
+onScrolly();
+
+// b) Navegación por puntos: capítulo activo
+const dots = document.querySelectorAll('.dots-nav a');
+const dotIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = '#' + e.target.id;
+    dots.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+  });
+}, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+['hero', 'about', 'process', 'services', 'gallery', 'quote', 'contact']
+  .forEach(id => { const el = document.getElementById(id); if (el) dotIO.observe(el); });
+
+// c) Pasos narrativos: activar paso + actualizar panel visual sticky
+function swapPanel(panel, step) {
+  const icon = panel.querySelector('.v-icon i');
+  const title = panel.querySelector('.v-title');
+  const text = panel.querySelector('.v-text');
+  if (icon && step.dataset.vicon) icon.className = 'fas ' + step.dataset.vicon;
+  if (title && step.dataset.vtitle) title.textContent = step.dataset.vtitle;
+  if (text && step.dataset.vtext) text.textContent = step.dataset.vtext;
+  // re-disparar animación de intercambio
+  panel.querySelectorAll('.v-icon, .v-info').forEach(el => {
+    el.classList.remove('swap');
+    void el.offsetWidth; // force reflow
+    el.classList.add('swap');
+  });
+}
+
+const stepIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const step = e.target;
+    const story = step.closest('.story');
+    if (!story) return;
+    if (e.isIntersecting) {
+      // un solo paso activo por capítulo
+      story.querySelectorAll('.story-step').forEach(s => s.classList.remove('is-active'));
+      step.classList.add('is-active');
+      const panel = story.querySelector('[data-panel]');
+      if (panel) swapPanel(panel, step);
+    }
+  });
+}, { rootMargin: '-42% 0px -42% 0px', threshold: 0 });
+document.querySelectorAll('.story-step').forEach(s => stepIO.observe(s));
+
+// d) Servicios: resaltar tarjeta cuando está centrada
+const cardIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => e.target.classList.toggle('is-active', e.isIntersecting));
+}, { threshold: 0.55 });
+document.querySelectorAll('.service-card').forEach(c => cardIO.observe(c));
+
+// e) Contadores animados (stats del hero)
+function animateCount(el) {
+  const target = parseInt(el.dataset.count, 10) || 0;
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  if (reduceMotion) { el.textContent = prefix + target + suffix; return; }
+  const dur = 1200;
+  const t0 = performance.now();
+  const tick = (t) => {
+    const p = Math.min(1, (t - t0) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const countIO = new IntersectionObserver((entries, obs) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
