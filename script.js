@@ -532,9 +532,27 @@ if (reduceMotion || !logo3dInner) {
 const progressFill = document.getElementById('progressFill');
 const heroContent = document.querySelector('.hero-content');
 
+// decoraciones laterales (f): elementos + update, definidos antes de onScrolly
+const sideFxIcons = document.querySelectorAll('.side-fx .fx');
+function updateSideFx() {
+  if (!sideFxIcons.length) return;
+  const sy = window.scrollY;
+  sideFxIcons.forEach(el => {
+    const rate = parseFloat(el.dataset.speed || 0.1);
+    el.style.transform = `translate3d(0, ${(sy * rate * 0.35).toFixed(1)}px, 0)`;
+  });
+}
+const sideFxDotIO = new IntersectionObserver((entries) => {
+  entries.forEach(e => document.body.classList.toggle('in-quote', e.isIntersecting));
+}, { threshold: 0.05 });
+const quoteSection = document.getElementById('quote');
+if (quoteSection) sideFxDotIO.observe(quoteSection);
+
 function onScrolly() {
   // logo 3D: rotación y acople con el scroll
   if (!reduceMotion) updateLogo3d();
+  // decoraciones laterales: parallax sutil
+  if (!reduceMotion) updateSideFx();
   // progreso de scroll 0-100%
   const doc = document.documentElement;
   const max = doc.scrollHeight - window.innerHeight;
