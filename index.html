@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#07070d" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800;900&family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -23,6 +23,8 @@
     <a href="#process"><span>Proceso</span></a>
     <a href="#services"><span>Servicios</span></a>
     <a href="#gallery"><span>Galería</span></a>
+    <a href="#testimonials"><span>Testimonios</span></a>
+    <a href="#faq"><span>FAQ</span></a>
     <a href="#quote"><span>Cotización</span></a>
     <a href="#contact"><span>Contacto</span></a>
   </nav>
@@ -30,7 +32,7 @@
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
-      <a href="#hero" class="logo" id="navLogo">
+      <a href="#hero" class="logo">
         <span class="logo-mark">RM</span><span class="logo-text">SOUND</span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Menú"><i class="fas fa-bars"></i></button>
@@ -39,72 +41,105 @@
         <a href="#process">Proceso</a>
         <a href="#services">Servicios</a>
         <a href="#gallery">Galería</a>
+        <a href="#faq">FAQ</a>
         <a href="#quote" class="nav-cta">Cotizar</a>
         <a href="#contact">Contacto</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- HERO: tipografía display gigante -->
   <section id="hero" class="hero">
     <div class="hero-overlay"></div>
     <div class="container hero-content" data-animate>
-      <div class="hero-badge" data-animate data-delay="0"><i class="fas fa-bolt"></i> Producción de eventos de alto impacto</div>
-      <h1 class="hero-title" data-animate data-delay="1">Hacemos que tu evento <span class="neon">suene, brille y se sienta</span></h1>
+      <p class="hero-kicker" data-animate data-delay="0">Sonido · Luz · Pantallas LED · Escenarios</p>
+      <h1 class="hero-display" data-animate data-delay="1">
+        <span class="display-line">Tu próximo</span>
+        <span class="display-line"><span class="neon">show</span> en vivo.</span>
+      </h1>
       <p class="hero-sub" data-animate data-delay="2">Sonido profesional, iluminación, pantallas LED, escenarios y estructuras para conciertos, corporativos y celebraciones. Producción integral con tecnología de punta.</p>
       <div class="hero-actions" data-animate data-delay="3">
-        <a href="#quote" class="btn btn-primary"><i class="fas fa-clipboard-list"></i> Solicitar cotización</a>
+        <a href="#quote" class="btn btn-primary">Cotizar mi evento <i class="fas fa-arrow-right"></i></a>
         <a href="https://wa.me/584144533064" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-whatsapp"></i> WhatsApp</a>
       </div>
-      <div class="hero-stats" data-animate data-delay="4">
-        <div class="stat"><span class="stat-num" data-count="10" data-prefix="+">+10</span><span class="stat-label">Años de experiencia</span></div>
-        <div class="stat"><span class="stat-num" data-count="500" data-suffix="+">500+</span><span class="stat-label">Eventos realizados</span></div>
-        <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label">Compromiso</span></div>
+    </div>
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Sonido profesional</span><i class="fas fa-asterisk"></i>
+        <span>Pantallas LED</span><i class="fas fa-asterisk"></i>
+        <span>Iluminación</span><i class="fas fa-asterisk"></i>
+        <span>Escenarios y truss</span><i class="fas fa-asterisk"></i>
+        <span>Producción integral</span><i class="fas fa-asterisk"></i>
+        <span>Venezuela</span><i class="fas fa-asterisk"></i>
+        <span>Sonido profesional</span><i class="fas fa-asterisk"></i>
+        <span>Pantallas LED</span><i class="fas fa-asterisk"></i>
+        <span>Iluminación</span><i class="fas fa-asterisk"></i>
+        <span>Escenarios y truss</span><i class="fas fa-asterisk"></i>
+        <span>Producción integral</span><i class="fas fa-asterisk"></i>
+        <span>Venezuela</span><i class="fas fa-asterisk"></i>
       </div>
     </div>
-    <div class="scroll-indicator"><i class="fas fa-chevron-down"></i></div>
+  </section>
+
+  <!-- MÉTRICAS -->
+  <section id="metrics" class="metrics">
+    <div class="container">
+      <span class="label" data-animate>[ Métricas ]</span>
+      <div class="metrics-grid" data-animate>
+        <div class="metric">
+          <span class="metric-num" data-count="10" data-prefix="+">+10</span>
+          <span class="metric-label">Años de experiencia</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="500" data-suffix="+">500+</span>
+          <span class="metric-label">Eventos realizados</span>
+        </div>
+        <div class="metric">
+          <span class="metric-num" data-count="100" data-suffix="%">100%</span>
+          <span class="metric-label">Compromiso</span>
+        </div>
+      </div>
+      <p class="metrics-note" data-animate>RM SOUND en cifras: más de 10 años de experiencia y más de 500 eventos — conciertos, corporativos y celebraciones en toda Venezuela.</p>
+    </div>
   </section>
 
   <!-- ABOUT: capítulo scrollytelling -->
   <section id="about" class="section">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Capítulo 01 — Nosotros</span>
-        <h2 class="section-title">RM SOUND, <span class="neon-purple">tu aliado en el show</span></h2>
-        <p class="section-desc">Una historia por capítulos: de tu idea al escenario encendido.</p>
+        <span class="label">[ Nosotros ]</span>
+        <h2 class="display-title">El show se construye<br /><span class="neon-purple">desde la técnica.</span></h2>
       </div>
       <div class="story">
         <div class="story-visual" data-animate>
-          <div class="led-frame">
-            <img src="assets/img/profile.jpg" alt="RM SOUND" />
-            <div class="led-glow"></div>
-          </div>
-          <div class="story-visual-panel" data-panel>
-            <span class="v-icon"><i class="fas fa-bolt"></i></span>
-            <div class="v-info">
-              <h4 class="v-title">RM SOUND</h4>
-              <p class="v-text">Sonido, LED, iluminación y escenarios bajo un mismo comando.</p>
+          <div class="led-screen">
+            <div class="story-visual-panel" data-panel>
+              <span class="v-icon"><i class="fas fa-bolt"></i></span>
+              <div class="v-info">
+                <h4 class="v-title">RM SOUND</h4>
+                <p class="v-text">Sonido, LED, iluminación y escenarios bajo un mismo comando.</p>
+              </div>
             </div>
           </div>
         </div>
         <div class="story-steps">
           <div class="story-step" data-vicon="fa-bolt" data-vtitle="RM SOUND" data-vtext="Sonido, LED, iluminación y escenarios bajo un mismo comando.">
-            <span class="step-num">01</span>
+            <span class="step-num">[ 001 ]</span>
             <h3>Nacimos del escenario</h3>
             <p>Más de 10 años sonorizando conciertos, eventos corporativos y celebraciones. Cada montaje nos dejó una lección: el show se construye desde la técnica.</p>
           </div>
           <div class="story-step" data-vicon="fa-headset" data-vtitle="Diagnóstico 360°" data-vtext="Aforo, espacio, fecha y rider técnico: todo entra en la conversación.">
-            <span class="step-num">02</span>
+            <span class="step-num">[ 002 ]</span>
             <h3>Escuchamos tu evento</h3>
             <p>Aforo, lugar, horarios y rider técnico. Antes de cotizar una sola bocina, entendemos exactamente qué necesita tu show para sonar bien.</p>
           </div>
           <div class="story-step" data-vicon="fa-pen-ruler" data-vtitle="Diseño técnico" data-vtext="Plano de montaje, distribución de pantallas, truss, sonido y luces.">
-            <span class="step-num">03</span>
+            <span class="step-num">[ 003 ]</span>
             <h3>Diseñamos tu montaje</h3>
             <p>Distribución de pantallas LED, truss, sonido e iluminación pensada para tu espacio. Logística y tiempos bajo control desde el primer plano.</p>
           </div>
           <div class="story-step" data-vicon="fa-heart" data-vtitle="Show time" data-vtext="Montaje, pruebas y operación en vivo hasta el apagón final.">
-            <span class="step-num">04</span>
+            <span class="step-num">[ 004 ]</span>
             <h3>Lo hacemos show</h3>
             <p>Montaje seguro, pruebas completas y operación en vivo. Te acompañamos con equipos de última generación y técnicos dedicados hasta el apagón final.</p>
           </div>
@@ -117,38 +152,39 @@
   <section id="process" class="section section-dark">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Capítulo 02 — Proceso</span>
-        <h2 class="section-title">Del rider al <span class="neon">show</span></h2>
-        <p class="section-desc">Cuatro pasos que avanzan mientras haces scroll.</p>
+        <span class="label">[ Proceso ]</span>
+        <h2 class="display-title">Del rider al <span class="neon">show.</span></h2>
       </div>
       <div class="story">
         <div class="story-visual" data-animate>
-          <div class="story-visual-panel story-visual-panel-lg" data-panel>
-            <span class="v-icon"><i class="fas fa-comments"></i></span>
-            <div class="v-info">
-              <h4 class="v-title">Exploración</h4>
-              <p class="v-text">Entendemos tu evento: aforo, espacio, fecha y presupuesto.</p>
+          <div class="led-screen">
+            <div class="story-visual-panel" data-panel>
+              <span class="v-icon"><i class="fas fa-comments"></i></span>
+              <div class="v-info">
+                <h4 class="v-title">Exploración</h4>
+                <p class="v-text">Entendemos tu evento: aforo, espacio, fecha y presupuesto.</p>
+              </div>
             </div>
           </div>
         </div>
         <div class="story-steps">
           <div class="story-step" data-vicon="fa-comments" data-vtitle="Exploración" data-vtext="Entendemos tu evento: aforo, espacio, fecha y presupuesto.">
-            <span class="step-num">01</span>
+            <span class="step-num">[ 001 ]</span>
             <h3>Exploración</h3>
             <p>Conversamos sobre tu evento: aforo, espacio, fecha, horarios y presupuesto. Sin letra pequeña.</p>
           </div>
           <div class="story-step" data-vicon="fa-pen-ruler" data-vtitle="Diseño técnico" data-vtext="Rider, plano de montaje y distribución de pantallas y truss.">
-            <span class="step-num">02</span>
+            <span class="step-num">[ 002 ]</span>
             <h3>Diseño técnico</h3>
             <p>Armamos el rider, el plano de montaje y la distribución de pantallas, truss, sonido y luces.</p>
           </div>
           <div class="story-step" data-vicon="fa-truck-fast" data-vtitle="Producción" data-vtext="Logística, montaje y pruebas de sonido, LED y luces.">
-            <span class="step-num">03</span>
+            <span class="step-num">[ 003 ]</span>
             <h3>Producción y montaje</h3>
             <p>Logística, traslado, armado y pruebas de sonido, pantallas LED e iluminación. Todo verificado antes de abrir puertas.</p>
           </div>
           <div class="story-step" data-vicon="fa-bolt" data-vtitle="Show time" data-vtext="Operación en vivo con respaldo técnico dedicado.">
-            <span class="step-num">04</span>
+            <span class="step-num">[ 004 ]</span>
             <h3>Show time</h3>
             <p>Operación en vivo con técnico dedicado, respaldo de equipos y cierre puntual. Tu evento suena y brilla sin sorpresas.</p>
           </div>
@@ -158,40 +194,46 @@
   </section>
 
   <!-- SERVICES -->
-  <section id="services" class="section section-dark">
+  <section id="services" class="section">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Capítulo 03 — Servicios</span>
-        <h2 class="section-title">Todo lo que tu evento <span class="neon">necesita</span></h2>
+        <span class="label">[ Servicios ]</span>
+        <h2 class="display-title">Todo lo que tu evento<br /><span class="neon">necesita.</span></h2>
         <p class="section-desc">Soluciones integrales de audio, video, iluminación y estructuras.</p>
       </div>
       <div class="services-grid">
         <article class="service-card" data-animate>
+          <span class="service-num">01</span>
           <div class="service-icon"><i class="fas fa-volume-high"></i></div>
           <h3>Sonido Profesional</h3>
           <p>Sistemas line array, subwoofers, consolas digitales, micrófonos inalámbricos y monitores para un audio claro y potente.</p>
         </article>
         <article class="service-card" data-animate>
+          <span class="service-num">02</span>
           <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
           <h3>Iluminación</h3>
           <p>Cabezas móviles, barras LED, seguidores, máquinas de humo y diseño de iluminación para crear ambientes inolvidables.</p>
         </article>
         <article class="service-card" data-animate>
+          <span class="service-num">03</span>
           <div class="service-icon"><i class="fas fa-tv"></i></div>
           <h3>Pantallas LED</h3>
           <p>Pantallas LED indoor y outdoor de alta resolución, procesamiento de video y gestión de contenido en vivo.</p>
         </article>
         <article class="service-card" data-animate>
+          <span class="service-num">04</span>
           <div class="service-icon"><i class="fas fa-layer-group"></i></div>
           <h3>Escenarios y Truss</h3>
           <p>Tarimas modulares, estructuras truss, techados y escenografías adaptadas a tu espacio y evento.</p>
         </article>
         <article class="service-card" data-animate>
+          <span class="service-num">05</span>
           <div class="service-icon"><i class="fas fa-bolt"></i></div>
           <h3>Generador Eléctrico</h3>
           <p>Plantas eléctricas para garantizar energía estable y continua durante todo tu evento.</p>
         </article>
         <article class="service-card" data-animate>
+          <span class="service-num">06</span>
           <div class="service-icon"><i class="fas fa-restroom"></i></div>
           <h3>Baños Portátiles</h3>
           <p>Baños públicos portátiles para eventos al aire libre, con opciones VIP y estándar.</p>
@@ -201,11 +243,11 @@
   </section>
 
   <!-- GALLERY -->
-  <section id="gallery" class="section">
+  <section id="gallery" class="section section-dark">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Capítulo 04 — Galería</span>
-        <h2 class="section-title">Nuestros <span class="neon">eventos</span></h2>
+        <span class="label">[ Galería ]</span>
+        <h2 class="display-title">Eventos que suenan<br />y <span class="neon">brillan.</span></h2>
         <p class="section-desc">Un vistazo a montajes y shows realizados.</p>
       </div>
       <div class="gallery-grid">
@@ -219,12 +261,76 @@
     </div>
   </section>
 
-  <!-- QUOTE -->
-  <section id="quote" class="section section-dark">
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="section">
+    <div class="container">
+      <span class="label" data-animate>[ Testimonios ]</span>
+      <h2 class="display-title" data-animate>Lo que dicen<br /><span class="neon">nuestros clientes.</span></h2>
+      <div class="testi-grid">
+        <blockquote class="testi-card" data-animate>
+          <i class="fas fa-quote-left"></i>
+          <p>El montaje quedó impecable. La pantalla LED y el sonido transformaron nuestro evento corporativo — la gente salió hablando del show.</p>
+          <footer>
+            <strong>María González</strong>
+            <span>Evento corporativo · Caracas</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testi-card" data-animate>
+          <i class="fas fa-quote-left"></i>
+          <p>Cuidaron cada detalle: desde el plano de montaje hasta el apagón final. Puntuales, profesionales y con equipos excelentes.</p>
+          <footer>
+            <strong>Carlos Pérez</strong>
+            <span>Concierto privado · Valencia</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testi-card" data-animate>
+          <i class="fas fa-quote-left"></i>
+          <p>La tarima y la iluminación hicieron que mi celebración se sintiera como un concierto real. Encantados con el resultado.</p>
+          <footer>
+            <strong>Andrea Rojas</strong>
+            <span>Celebración · Maracay</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="section section-dark">
+    <div class="container container-narrow">
+      <span class="label" data-animate>[ FAQ ]</span>
+      <h2 class="display-title" data-animate>Preguntas frecuentes.</h2>
+      <div class="faq-list" data-animate>
+        <details class="faq-item">
+          <summary>¿Trabajan en toda Venezuela?<i class="fas fa-plus"></i></summary>
+          <p>Sí. Tenemos base en Venezuela y cobertura nacional: Caracas, interior y eventos al aire libre. La logística y el traslado se incluyen en tu propuesta.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué incluye la cotización?<i class="fas fa-plus"></i></summary>
+          <p>Detalle de equipos, cantidades, personal técnico, montaje, desmontaje y logística. Es una solicitud sin compromiso y totalmente personalizada a tu evento.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Con cuánta anticipación debo reservar?<i class="fas fa-plus"></i></summary>
+          <p>Lo ideal es contactarnos entre 2 y 4 semanas antes del evento. En temporada alta (noviembre–diciembre) recomendamos reservar con mayor anticipación.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Se encargan del montaje y desmontaje completo?<i class="fas fa-plus"></i></summary>
+          <p>Sí. Nos hacemos cargo de todo: montaje, pruebas de sonido, LED e iluminación, operación en vivo y desmontaje, con técnicos dedicados durante todo el evento.</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué pasa si falla la energía en el evento?<i class="fas fa-plus"></i></summary>
+          <p>Ofrecemos plantas eléctricas como servicio adicional o respaldo para garantizar energía estable y continua durante todo tu show.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE (fondo blanco) -->
+  <section id="quote" class="section">
     <div class="container">
       <div class="section-head" data-animate>
-        <span class="eyebrow">Capítulo 05 — Cotización</span>
-        <h2 class="section-title">Arma tu <span class="neon">cotización</span></h2>
+        <span class="label">[ Cotiza ]</span>
+        <h2 class="display-title">Arma tu <span class="neon">cotización.</span></h2>
         <p class="section-desc">Selecciona los equipos y servicios que necesitas. Te enviamos la propuesta por WhatsApp y correo.</p>
       </div>
       <div class="quote-layout">
@@ -337,13 +443,18 @@
     </div>
   </section>
 
+  <!-- CTA GIGANTE -->
+  <section id="cta" class="cta">
+    <div class="container">
+      <a href="#quote" class="cta-giant" data-animate>Hagámoslo <i class="fas fa-arrow-up-right-dots"></i></a>
+      <p class="cta-sub" data-animate>Cuéntanos de tu evento y recibe una propuesta personalizada, sin compromiso.</p>
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact" class="section">
     <div class="container">
-      <div class="section-head" data-animate>
-        <span class="eyebrow">Capítulo 06 — Contacto</span>
-        <h2 class="section-title">Hablemos de tu <span class="neon">evento</span></h2>
-      </div>
+      <span class="label" data-animate>[ Contacto ]</span>
       <div class="contact-grid">
         <a class="contact-card" href="https://wa.me/584144533064" target="_blank" rel="noopener">
           <i class="fab fa-whatsapp"></i>
@@ -365,6 +476,10 @@
   </section>
 
   <footer class="footer">
+    <div class="footer-giant" aria-hidden="true">
+      <span>Shows de</span>
+      <span class="footer-giant-accent">alto nivel.</span>
+    </div>
     <div class="container footer-inner">
       <div class="logo"><span class="logo-mark">RM</span><span class="logo-text">SOUND</span></div>
       <p>© <span id="year"></span> RMSOUND. Sonido profesional para eventos.</p>
@@ -374,9 +489,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Logo 3D extruido, se mueve con el scroll y se acopla al nav -->
-  <div class="logo-3d" id="logo3d" aria-hidden="true"></div>
 
   <!-- Decoraciones laterales scrollytelling (solo desktop) -->
   <div class="side-fx" aria-hidden="true">
