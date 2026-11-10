@@ -416,8 +416,18 @@ a { color: inherit; text-decoration: none; }
   position: absolute;
   display: none;
   pointer-events: none;
+  overflow: hidden;
 }
 .truss-frame.active { display: block; }
+.truss-diag {
+  position: absolute; left: 0; top: 50%;
+  width: 100%; height: 3px;
+  background: repeating-linear-gradient(90deg, rgba(192,132,252,0.6) 0 8px, rgba(124,58,237,0.4) 8px 16px);
+  transform-origin: center;
+  opacity: 0.7;
+}
+.truss-diag1 { transform: translateY(-50%) rotate(35deg); }
+.truss-diag2 { transform: translateY(-50%) rotate(-35deg); }
 .truss-bar {
   position: absolute;
   border-radius: 2px;
@@ -454,6 +464,15 @@ a { color: inherit; text-decoration: none; }
   display: none;
 }
 .stage-platform.active { display: block; }
+.stage-platform .leg {
+  position: absolute; bottom: -12px;
+  width: 3px; height: 12px;
+  background: #4a4a7a;
+  border-radius: 1px;
+}
+.stage-platform .leg:nth-child(1) { left: 8%; }
+.stage-platform .leg:nth-child(2) { left: 50%; transform: translateX(-50%); }
+.stage-platform .leg:nth-child(3) { right: 8%; }
 .stage-elements {
   position: absolute; inset: 0; pointer-events: none;
 }
